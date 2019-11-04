@@ -4,10 +4,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
     /**
      * @Route("/")
@@ -20,9 +21,16 @@ class ArticleController
      * @Route("/news/{slug}")
      */
     public function show($slug){
-        return new Response(sprintf(
-            'Future page to show the article: %s',
-            $slug
-        ));
+
+        $comments = [
+            'I ate a normal rock once. Itdod NOT taste like bacon!',
+            'Wooohooo I\'m going on an all-asteriod diet',
+            'I like bacon too! Buy ssome from my site! bakinsomebacon.com',
+        ];
+
+        return $this->render('article/show.html.twig', [
+            'title' => ucwords(str_replace('-',' ', $slug)),
+            'comments' => $comments
+        ]);
     }
 }
